@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Subset;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -34,6 +35,28 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    
+    /**
+     * User avatar url
+     *
+     * @return string
+     */
+    public function getAvatar(): string
+    {
+        return $this->avatar
+        ? Storage::disk('public')->url($this->avatar)
+        : 'gravatar';
+    }
+
+    /**
+     * User default avatar
+     *
+     * @return string
+     */
+    public function getGravatar(): string
+    {
+        return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email))) . '?s=80&d=retro';
+    }
 
     /**
      * The attributes that should be cast.

@@ -77,7 +77,7 @@ class UrlController extends Controller
     {
         $url->update($request->validated());
         return response()->json([
-            'message' => __('Data updated successfully'),
+            'message' => 'Data updated successfully',
         ]);
     }
 

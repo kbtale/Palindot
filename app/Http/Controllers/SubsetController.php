@@ -38,15 +38,16 @@ class SubsetController extends Controller
      *
      * @return     JsonResponse                     The json response.
      */
-    public function show(Url $subset): JsonResponse
+    public function show(Subset $subset): JsonResponse
     {
         return response()->json(new SubsetCollection($subset));
     }
 
     /**
-     * Function to store the shortened Urls
-     * 
-     * 
+     * Function to store the subset.
+     * @param      \App\Models\SubsetRequest  $subset       The subset to be stored.
+     *
+     * @return     JsonResponse                             The json response.
      */
     public static function store(SubsetRequest $request): JsonResponse {
         $validated = $request->validate();
@@ -76,12 +77,12 @@ class SubsetController extends Controller
     {
         $subset->update($request->validated());
         return response()->json([
-            'message' => __('Data updated successfully'),
+            'message' => 'Data updated successfully',
         ]);
     }
 
     /**
-     * Destroys the given Url.
+     * Destroys the given Subset.
      *
      * @param      \App\Models\SubsetRequest  $subset  The subset to be deleted
      *

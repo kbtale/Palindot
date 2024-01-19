@@ -43,23 +43,6 @@ class Url extends Model
     }
 
     /**
-     * Function to store the shortened Urls
-     * 
-     * 
-     */
-    public static function storeUrl(string $baseUrl, ?int $subsetId = null): String {
-        $generatedUrl = self::generateUrl($baseUrl);
-
-        self::create([
-            'base_url' => $baseUrl,
-            'to_url' => $generatedUrl,
-            'subset_id' => $subsetId
-        ]);
-
-        return app()->make('url')->to($generatedUrl);
-    }
-
-    /**
      * Retrieves the subset of the link
      *
      * @return     BelongsTo  The belongs to.

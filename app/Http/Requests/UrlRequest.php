@@ -22,8 +22,8 @@ class UrlRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'base_url | required',
-            'subset_id | nullable' 
+            'base_url|required',
+            'subset_id|nullable' 
         ];
     }
 }
