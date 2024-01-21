@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use app\Models\Url;
+use app\Models\UrlSubset;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\Url;
 
 class Subset extends Model
 {
@@ -21,7 +23,7 @@ class Subset extends Model
     protected $fillable = [
         'subset_name',
         'subset_descr',
-        'subset_id',
+        'user_id',
     ];
 
     /**
@@ -35,12 +37,12 @@ class Subset extends Model
     }
 
     /**
-     * Get the links of the subset
+     * Get the urls of the subset
      *
-     * @return HasMany
+     * @return BelongsToMany
      */
-    public function users(): HasMany
+    public function urls(): BelongsToMany
     {
-        return $this->hasMany(Url::class, 'subset_id');
+        return $this->belongsToMany(Url::class, 'link_subset');
     }
 }

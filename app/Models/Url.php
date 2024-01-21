@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\UrlSubset;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Subset;
 
 class Url extends Model
@@ -19,7 +21,6 @@ class Url extends Model
     protected $fillable = [
         'base_url',
         'to_url',
-        'subset_id',
     ];
 
     /**
@@ -27,7 +28,7 @@ class Url extends Model
      * 
      * 
      */
-    public static function generateUrl(string $baseUrl, $length = 15): String {
+    public static function generateUrl(string $baseUrl, $length = 17): String {
         $baseUrlChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~:/?#[]@!$&\'()*+,;=';
         $hash = substr(hash('sha256', $baseUrl), 0, $length);
         $halfLength = floor($length / 2);
@@ -43,12 +44,12 @@ class Url extends Model
     }
 
     /**
-     * Retrieves the subset of the link
+     * Get the subsets of the link
      *
-     * @return     BelongsTo  The belongs to.
+     * @return BelongsToMany
      */
-    public function user(): BelongsTo
+    public function subsets(): BelongsToMany
     {
-        return $this->belongsTo(Subset::class);
+        return $this->belongsToMany(Subset::class, 'link_subset');
     }
 }

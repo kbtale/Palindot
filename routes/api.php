@@ -27,13 +27,16 @@ foreach($shortenedUrls as $url){
 }
 
 Route::group(['prefix' => 'v1', 'namespace'=>'App\Http\Controllers'], function(){
+    Route::post('register', [AuthController::class, 'register'])->name('auth.register');
+    Route::post('login', [AuthController::class,'login'])->name('auth.login');
     Route::apiResource('urls', UrlController::class);
-    Route::apiResource('urls', UserController::class);
-    Route::apiResource('urls', SubsetController::class);
+    
+    Route::middleware('auth:sanctum')->group(function (){
+        Route::get('logout', [AuthController::class,'logout'])->name('auth.logout');
+        Route::apiResource('subsets', SubsetController::class);
+    });
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::post('register', [AuthController::class,'register'])->name('auth.register');

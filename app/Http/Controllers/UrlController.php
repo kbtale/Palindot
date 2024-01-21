@@ -51,17 +51,25 @@ class UrlController extends Controller
         $validated = $request->validate();
         $generatedUrl = Url::generateUrl($validated['base_url']);
 
+        $existingUrl = Url::where('base_url', $validated['base_url'])->first();
+
+        if ($existingUrl) {
+            return response()->json([
+                'message' => 'Base URL already exists, here is the data.',
+                'base_url' => $existingUrl->base_url,
+                'to_url' => $existingUrl->to_url,
+            ], 200);
+        }
+        
         Url::create([
             'base_url' => $validated['base_url'],
             'to_url' => $generatedUrl,
-            'subset_id' => $validated['subset_id']
         ]);
 
         return response()->json([
             'base_url' => $validated['base_url'],
             'to_url' => $generatedUrl,
-            'subset_id' => $validated['subset_id'],
-            'message' => 'Url Generated Successfully'
+            'message' => 'Url generated successfully.'
         ]);
     }
 
@@ -91,6 +99,6 @@ class UrlController extends Controller
     public function destroy(UrlRequest $url): JsonResponse
     {
         $url->delete();
-        return response()->json(['message' => __('Data removed successfully')]);
+        return response()->json(['message' => 'Data removed successfully']);
     }
 }

@@ -20,7 +20,11 @@ class SubsetController extends Controller
     public function index(Request $request): JsonResponse
     {
         $sort = $this->sort($request);
-        $subsets = Subset::filter($request->all())
+
+        $userId = $request->user()->id;
+
+        $subsets = Subset::where('user_id', $userId)
+            ->filter($request->all())
             ->orderBy($sort['column'], $sort['order'])
             ->paginate((int) $request->get('perPage', 10));
         return response()->json(
@@ -40,8 +44,14 @@ class SubsetController extends Controller
      */
     public function show(Subset $subset): JsonResponse
     {
-        return response()->json(new SubsetCollection($subset));
+        $urls = $subset->urls;
+
+        return response()->json([
+            'subset' => $subset,
+            'urls' => $urls,
+        ]);
     }
+
 
     /**
      * Function to store the subset.
@@ -91,6 +101,6 @@ class SubsetController extends Controller
     public function destroy(SubsetRequest $subset): JsonResponse
     {
         $subset->delete();
-        return response()->json(['message' => __('Data removed successfully')]);
+        return response()->json(['message' => 'Data removed successfully']);
     }
 }
