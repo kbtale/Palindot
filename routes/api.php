@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Url;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,11 +30,16 @@ foreach($shortenedUrls as $url){
 Route::group(['prefix' => 'v1', 'namespace'=>'App\Http\Controllers'], function(){
     Route::post('register', [AuthController::class, 'register'])->name('auth.register');
     Route::post('login', [AuthController::class,'login'])->name('auth.login');
-    Route::apiResource('urls', UrlController::class);
+    Route::post('urls/create', [UrlController::class,'store'])->name('url.create');
     
     Route::middleware('auth:sanctum')->group(function (){
         Route::get('logout', [AuthController::class,'logout'])->name('auth.logout');
+        Route::get('urls', [UrlController::class,'index'])->name('url.index');
+        Route::get('urls/{url}', [UrlController::class,'show'])->name('url.show');
+        Route::put('urls/{url}', [UrlController::class,'update'])->name('url.update');
+        Route::delete('urls/{url}', [UrlController::class,'destroy'])->name('url.delete');
         Route::apiResource('subsets', SubsetController::class);
+        Route::apiResource('user', UserController::class);
     });
 });
 

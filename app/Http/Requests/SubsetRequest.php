@@ -22,8 +22,8 @@ class SubsetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subset_name|required|max:225',
-            'subset_descr|sometimes|min:20|max:225'
+            'subset_name' => 'required|max:225',
+            'subset_descr' => 'sometimes|nullable|min:20|max:225'
         ];
     }
 }

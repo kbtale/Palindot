@@ -73,7 +73,7 @@ class User extends Authenticatable
      *
      * @return HasMany
      */
-    public function users(): HasMany
+    public function subsets(): HasMany
     {
         return $this->hasMany(Subset::class, 'user_id');
     }

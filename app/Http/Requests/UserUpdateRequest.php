@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUrlSubsetRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,8 @@ class StoreUrlSubsetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'url_id' => 'required|exists:urls,id',
-            'subset_id' => 'required|exists:subsets,id',
+            'name' => 'required|max:255',
+            'password' => 'required|string|min:8',
         ];
     }
 }

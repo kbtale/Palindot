@@ -17,6 +17,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('base_url');
             $table->string('to_url');
+            $table->foreignIdFor(Subset::class, 'subset_id')->nullable()->constrained()->cascadeOnDelete();
         });
     }
 

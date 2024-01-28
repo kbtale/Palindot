@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\UrlSubset;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Subset;
+use EloquentFilter\Filterable;
 
 class Url extends Model
 {
-    use HasFactory;
+    use HasFactory, Filterable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +20,7 @@ class Url extends Model
     protected $fillable = [
         'base_url',
         'to_url',
+        'subset_id'
     ];
 
     /**
@@ -28,9 +28,10 @@ class Url extends Model
      * 
      * 
      */
-    public static function generateUrl(string $baseUrl, $length = 17): String {
+    public static function generateUrl(string $baseUrl, $length = 15): String {
         $baseUrlChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~:/?#[]@!$&\'()*+,;=';
-        $hash = substr(hash('sha256', $baseUrl), 0, $length);
+
+        $hash = substr(hash('sha256', $baseUrl . microtime()), 0, $length);
         $halfLength = floor($length / 2);
         $firstHalf = '';
     
@@ -42,14 +43,15 @@ class Url extends Model
     
         return app()->make('url')->to($firstHalf . $secondHalf);
     }
+    
 
     /**
-     * Get the subsets of the link
+     * Get the subset of the link
      *
-     * @return BelongsToMany
+     * @return BelongsTo
      */
-    public function subsets(): BelongsToMany
+    public function subset(): BelongsTo
     {
-        return $this->belongsToMany(Subset::class, 'link_subset');
+        return $this->belongsTo(Subset::class);
     }
 }

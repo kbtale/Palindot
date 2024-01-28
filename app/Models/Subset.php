@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use app\Models\UrlSubset;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Url;
+use EloquentFilter\Filterable;
 
 class Subset extends Model
 {
-    use HasFactory;
+    use HasFactory, Filterable;
 
     /**
      * The attributes that are mass assignable.
@@ -39,10 +38,10 @@ class Subset extends Model
     /**
      * Get the urls of the subset
      *
-     * @return BelongsToMany
+     * @return HasMany
      */
-    public function urls(): BelongsToMany
+    public function urls(): HasMany
     {
-        return $this->belongsToMany(Url::class, 'link_subset');
+        return $this->hasMany(Url::class, 'subset_id');
     }
 }

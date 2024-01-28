@@ -7,68 +7,114 @@ use App\Models\Url;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\UrlRequest;
-use App\Http\Resources\UrlCollection;
+use App\Http\Resources\UrlResource;
+use Illuminate\Validation\ValidationException;
 
-class UrlController extends Controller
+class UrlController extends ApiController
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
+     * @SWG\Get(
+     *     path="/urls",
+     *     description="Gets a list of URLs of the user",
+     *     @SWG\Response(
+     *         response=200,
+     *         description="List of URLs"
+     *     )
+     * )
      */
     public function index(Request $request): JsonResponse
     {
+        $userId = auth()->id();
+    
         $sort = $this->sort($request);
-        $urls = Url::filter($request->all())
-            ->orderBy($sort['column'], $sort['order'])
+    
+        $urls = Url::join('subsets', 'urls.subset_id', '=', 'subsets.id')
+            ->where('subsets.user_id', $userId)
+            ->orderBy('urls.' . $sort['column'], $sort['order'])
             ->paginate((int) $request->get('perPage', 10));
+    
+    
         return response()->json(
             [
-                'items' => UrlCollection::collection($urls->items()),
+                'items' => UrlResource::collection($urls->items()),
                 'pagination' => $this->pagination($urls),
             ]
         );
     }
+    
 
     /**
      * Display the specified resource.
      *
-     * @param      \App\Models\Url  $url     The url to be shown
+     * @param Url $url url
      *
-     * @return     JsonResponse              The json response.
+     * @return JsonResponse
+     * @SWG\Get(
+     *     path="/urls/{id}",
+     *     description="Gets a specific URL",
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the URL",
+     *         required=true,
+     *         type="integer"
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="Specific URL"
+     *     )
+     * )
      */
     public function show(Url $url): JsonResponse
     {
-        return response()->json(new UrlCollection($url));
+        return response()->json(new UrlResource($url));
     }
 
     /**
-     * Function to store the shortened Urls
-     * 
-     * 
+     * Store a newly created resource in storage.
+     *
+     * @param UrlRequest $request request
+     *
+     * @return JsonResponse
+     * @SWG\Post(
+     *     path="/urls",
+     *     description="Creates a new URL",
+     *     @SWG\Parameter(
+     *         name="request",
+     *         in="body",
+     *         description="URL parameters",
+     *         required=true,
+     *         @SWG\Schema(ref="#/definitions/UrlRequest")
+     *     ),
+     *     @SWG\Response(
+     *         response=201,
+     *         description="URL created successfully"
+     *     )
+     * )
      */
     public static function store(UrlRequest $request): JsonResponse {
-        $validated = $request->validate();
+        
+        $validated = $request->validated();
+
         $generatedUrl = Url::generateUrl($validated['base_url']);
 
-        $existingUrl = Url::where('base_url', $validated['base_url'])->first();
-
-        if ($existingUrl) {
-            return response()->json([
-                'message' => 'Base URL already exists, here is the data.',
-                'base_url' => $existingUrl->base_url,
-                'to_url' => $existingUrl->to_url,
-            ], 200);
-        }
-        
-        Url::create([
+        $urlData = [
             'base_url' => $validated['base_url'],
             'to_url' => $generatedUrl,
-        ]);
+        ];
+
+        $urlData['subset_id'] = $validated['subset_id'] ?? null;
+
+        $createdUrl = Url::create($urlData);
 
         return response()->json([
+            'id' => $createdUrl->id,
             'base_url' => $validated['base_url'],
             'to_url' => $generatedUrl,
+            'subset_id' => $validated['subset_id'] ?? null,
             'message' => 'Url generated successfully.'
         ]);
     }
@@ -76,29 +122,96 @@ class UrlController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param      \App\Http\Requests\UrlRequest  $request       The request
-     * @param      \App\Models\Url                $Url           The url to be updated
+     * @param UrlRequest $request request
+     * @param Url        $url     url
      *
-     * @return     JsonResponse                                  The json response.
+     * @return JsonResponse
+     * @SWG\Put(
+     *     path="/urls/{id}",
+     *     description="Updates a specific URL",
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the URL",
+     *         required=true,
+     *         type="integer"
+     *     ),
+     *     @SWG\Parameter(
+     *         name="request",
+     *         in="body",
+     *         description="URL parameters",
+     *         required=true,
+     *         @SWG\Schema(ref="#/definitions/UrlRequest")
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="URL updated successfully"
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Unauthorized"
+     *     )
+     * )
      */
     public function update(UrlRequest $request, Url $url): JsonResponse
     {
-        $url->update($request->validated());
-        return response()->json([
-            'message' => 'Data updated successfully',
-        ]);
-    }
+        // Get the current user
+        $user = auth()->user();
+    
+        // Check if the URL is part of a user's subset
+        if ($url->subset->user_id == $user->id) {
+            $url->update($request->validated());
+            return response()->json([
+                'message' => 'Data updated successfully',
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Unauthorized. You are not the owner of this url address',
+            ], 403);
+        }
+    }    
 
     /**
-     * Destroys the given Url.
+     * Remove the specified resource from storage.
      *
-     * @param      \App\Models\UrlRequest  $url  The url to be deleted
+     * @param Url $url url
      *
-     * @return     JsonResponse              The json response.
+     * @return JsonResponse
+     * @SWG\Delete(
+     *     path="/urls/{id}",
+     *     description="Deletes a specific URL",
+     *     @SWG\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID of the URL",
+     *         required=true,
+     *         type="integer"
+     *     ),
+     *     @SWG\Response(
+     *         response=200,
+     *         description="URL deleted successfully"
+     *     ),
+     *     @SWG\Response(
+     *         response=403,
+     *         description="Unauthorized"
+     *     )
+     * )
      */
-    public function destroy(UrlRequest $url): JsonResponse
+    public function destroy(Url $url): JsonResponse
     {
-        $url->delete();
-        return response()->json(['message' => 'Data removed successfully']);
+        // Get the current user
+        $user = auth()->user();
+    
+        // Check if the URL is part of a user's subset
+        if ($url->subset->user_id == $user->id) {
+            $url->delete();
+            return response()->json([
+                'message' => 'Data deleted successfully',
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Unauthorized. You are not the owner of this url address',
+            ], 403);
+        }
     }
 }
