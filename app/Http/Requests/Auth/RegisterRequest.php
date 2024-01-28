@@ -4,6 +4,28 @@ namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @SWG\Definition(
+ *     definition="RegisterRequest",
+ *     type="object",
+ *     description="Requires the data necessary to register a user",
+ *     @SWG\Property(
+ *         property="name",
+ *         type="string",
+ *         description="The name of the user",
+ *     ),
+ *     @SWG\Property(
+ *         property="email",
+ *         type="string",
+ *         description="The email of the new user",
+ *     ),
+ *     @SWG\Property(
+ *         property="password",
+ *         type="string",
+ *         description="The password of the new user. It must be confirmed",
+ *     )
+ * )
+ */
 class RegisterRequest extends FormRequest
 {
     /**

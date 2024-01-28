@@ -10,6 +10,13 @@ use App\Http\Requests\UrlRequest;
 use App\Http\Resources\UrlResource;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * @SWG\Definition(
+ *     definition="AuthController",
+ *     type="object",
+ *     description="Class with all the functions needed to manage URLs.",
+ * )
+ */
 class UrlController extends ApiController
 {
     /**
@@ -18,7 +25,7 @@ class UrlController extends ApiController
      * @return JsonResponse
      * @SWG\Get(
      *     path="/urls",
-     *     description="Gets a list of URLs of the user",
+     *     description="Gets all the URLs of the user.",
      *     @SWG\Response(
      *         response=200,
      *         description="List of URLs"
@@ -53,10 +60,10 @@ class UrlController extends ApiController
      *
      * @return JsonResponse
      * @SWG\Get(
-     *     path="/urls/{id}",
-     *     description="Gets a specific URL",
+     *     path="/urls/{url}",
+     *     description="Gets a specific URL.",
      *     @SWG\Parameter(
-     *         name="id",
+     *         name="url",
      *         in="path",
      *         description="ID of the URL",
      *         required=true,
@@ -80,8 +87,8 @@ class UrlController extends ApiController
      *
      * @return JsonResponse
      * @SWG\Post(
-     *     path="/urls",
-     *     description="Creates a new URL",
+     *     path="/urls/create",
+     *     description="Creates a new URL.",
      *     @SWG\Parameter(
      *         name="request",
      *         in="body",
@@ -127,10 +134,10 @@ class UrlController extends ApiController
      *
      * @return JsonResponse
      * @SWG\Put(
-     *     path="/urls/{id}",
-     *     description="Updates a specific URL",
+     *     path="/urls/{url}",
+     *     description="Updates a specific URL.",
      *     @SWG\Parameter(
-     *         name="id",
+     *         name="url",
      *         in="path",
      *         description="ID of the URL",
      *         required=true,
@@ -178,10 +185,10 @@ class UrlController extends ApiController
      *
      * @return JsonResponse
      * @SWG\Delete(
-     *     path="/urls/{id}",
-     *     description="Deletes a specific URL",
+     *     path="/urls/{url}",
+     *     description="Deletes a specific URL.",
      *     @SWG\Parameter(
-     *         name="id",
+     *         name="url",
      *         in="path",
      *         description="ID of the URL",
      *         required=true,

@@ -4,6 +4,23 @@ namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @SWG\Definition(
+ *     definition="LoginRequest",
+ *     type="object",
+ *     description="Requires the data necessary to log in",
+ *     @SWG\Property(
+ *         property="email",
+ *         type="string",
+ *         description="The email of the user",
+ *     ),
+ *     @SWG\Property(
+ *         property="password",
+ *         type="string",
+ *         description="The password of the user",
+ *     )
+ * )
+ */
 class LoginRequest extends FormRequest
 {
     /**

@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
+/**
+ * @SWG\Definition(
+ *     definition="AuthController",
+ *     type="object",
+ *     description="Class with all the functions needed to manage users.",
+ * )
+ */
 class UserController extends ApiController
 {
     /**
@@ -18,7 +25,7 @@ class UserController extends ApiController
      * @return JsonResponse
      * @SWG\Get(
      *     path="/users",
-     *     description="Display the information of the current user",
+     *     description="Displays the information of the current user.",
      *     @SWG\Response(
      *         response=200,
      *         description="Authenticated user"
@@ -40,7 +47,7 @@ class UserController extends ApiController
      * @return JsonResponse
      * @SWG\Get(
      *     path="/users/{id}",
-     *     description="Display the information of the current user, too",
+     *     description="Displays the information of the current user, too lol.",
      *     @SWG\Parameter(
      *         name="id",
      *         in="path",
@@ -75,7 +82,7 @@ class UserController extends ApiController
      * @return JsonResponse
      * @SWG\Post(
      *     path="/users",
-     *     description="Creates a new user. Only available for the admin created via seeders",
+     *     description="Creates a new user. Only available for the admin created via seeders.",
      *     @SWG\Parameter(
      *         name="request",
      *         in="body",
@@ -123,7 +130,7 @@ class UserController extends ApiController
      * @return JsonResponse
      * @SWG\Put(
      *     path="/users/{id}",
-     *     description="Updates the current user",
+     *     description="Updates the current user.",
      *     @SWG\Parameter(
      *         name="id",
      *         in="path",
@@ -171,7 +178,7 @@ class UserController extends ApiController
      * @return JsonResponse
      * @SWG\Delete(
      *     path="/users/{id}",
-     *     description="Deletes the current user",
+     *     description="Deletes the current user.",
      *     @SWG\Parameter(
      *         name="id",
      *         in="path",

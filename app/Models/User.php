@@ -11,6 +11,30 @@ use Laravel\Sanctum\HasApiTokens;
 use App\Models\Subset;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @SWG\Definition(
+ *     definition="User",
+ *     type="object",
+ *     description="This is the User model class",
+ *     @SWG\Property(
+ *         property="name",
+ *         type="string",
+ *         description="The name of the user"
+ *     ),
+ *     @SWG\Property(
+ *         property="email",
+ *         type="string",
+ *         format="email",
+ *         description="The email of the user"
+ *     ),
+ *     @SWG\Property(
+ *         property="password",
+ *         type="string",
+ *         format="password",
+ *         description="The password of the user"
+ *     )
+ * )
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;

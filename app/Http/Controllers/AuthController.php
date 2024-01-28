@@ -16,7 +16,7 @@ use \stdClass;
  * @SWG\Definition(
  *     definition="AuthController",
  *     type="object",
- *     description="This is the base API class",
+ *     description="Class with all the functions needed to register, login, logout and reset a user.",
  * )
  */
 class AuthController extends ApiController
@@ -29,7 +29,7 @@ class AuthController extends ApiController
      * @return JsonResponse
      * @SWG\Post(
      *     path="/register",
-     *     description="Registers a new user",
+     *     description="Registers a new user.",
      *     @SWG\Parameter(
      *         name="request",
      *         in="body",
@@ -71,7 +71,7 @@ class AuthController extends ApiController
      * @return JsonResponse
      * @SWG\Post(
      *     path="/login",
-     *     description="Logs in a user",
+     *     description="Logs in a user.",
      *     @SWG\Parameter(
      *         name="request",
      *         in="body",
@@ -116,7 +116,7 @@ class AuthController extends ApiController
      * @return JsonResponse
      * @SWG\Post(
      *     path="/logout",
-     *     description="Logs out a user",
+     *     description="Logs out a user.",
      *     @SWG\Response(
      *         response=200,
      *         description="User logged out successfully"

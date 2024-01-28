@@ -8,6 +8,28 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Subset;
 use EloquentFilter\Filterable;
 
+/**
+ * @SWG\Definition(
+ *     definition="Url",
+ *     type="object",
+ *     description="This is the URL model class",
+ *     @SWG\Property(
+ *         property="base_url",
+ *         type="string",
+ *         description="The base URL"
+ *     ),
+ *     @SWG\Property(
+ *         property="to_url",
+ *         type="string",
+ *         description="The shortened URL"
+ *     ),
+ *     @SWG\Property(
+ *         property="subset_id",
+ *         type="integer",
+ *         description="The ID of the subset to which the URL belongs"
+ *     )
+ * )
+ */
 class Url extends Model
 {
     use HasFactory, Filterable;
@@ -24,9 +46,18 @@ class Url extends Model
     ];
 
     /**
-     * Function to generate the shortened Urls
-     * 
-     * 
+     * @SWG\Definition(
+     *     definition="generateUrl",
+     *     type="function",
+     *     description="Function to generate the shortened Urls",
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Generated shortened URL",
+     *     @SWG\Schema(
+     *         type="string"
+     *     )
+     * )
      */
     public static function generateUrl(string $baseUrl, $length = 15): String {
         $baseUrlChars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~:/?#[]@!$&\'()*+,;=';
@@ -43,7 +74,6 @@ class Url extends Model
     
         return app()->make('url')->to($firstHalf . $secondHalf);
     }
-    
 
     /**
      * Get the subset of the link

@@ -7,40 +7,32 @@ use Illuminate\Http\Request;
 
 /**
  * @SWG\Swagger(
- *     basePath="/api",
+ *     basePath="/api/v1",
  *     @SWG\Info(
  *         version="1.0.0",
  *         title="Palindot API",
- *         description="User operations",
+ *         description="Api created for a URL Shortener that generates palindromic values.",
  *     )
  * )
  * @SWG\Definition(
  *     definition="ApiController",
  *     type="object",
- *     description="This is the base API class",
+ *     description="This is the base API class. It contains all the docs required by the other classes.",
  * )
  */
 class ApiController extends Controller
 {
     /**
-     * DataTable sorting for common resources
-     *
-     * @param mixed $request
-     *
-     * @return array
-     * @SWG\Post(
-     *     path="/sort",
-     *     description="Sorts the data received",
-     *     @SWG\Parameter(
-     *         name="request",
-     *         in="body",
-     *         description="Sorting parameters",
-     *         required=true,
-     *         @SWG\Schema(ref="#/definitions/SortRequest")
-     *     ),
-     *     @SWG\Response(
-     *         response=200,
-     *         description="Sorted data"
+     * @SWG\Definition(
+     *     definition="sort",
+     *     type="function",
+     *     description="Sorts the data received.",
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Sorted data, order by default by the creation time",
+     *     @SWG\Schema(
+     *         type="array",
      *     )
      * )
      */
@@ -59,12 +51,16 @@ class ApiController extends Controller
      * @param \Illuminate\Database\Eloquent\Collection $items
      *
      * @return array
-     * @SWG\Get(
-     *     path="/pagination",
-     *     description="Generates pagination for common dataTables",
-     *     @SWG\Response(
-     *         response=200,
-     *         description="Pagination data"
+     * @SWG\Definition(
+     *     definition="pagination",
+     *     type="function",
+     *     description="Generates pagination for common dataTables.",
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Pagination data",
+     *     @SWG\Schema(
+     *         type="array",
      *     )
      * )
      */
@@ -79,12 +75,17 @@ class ApiController extends Controller
     }
 
     /**
-     * @SWG\Get(
-     *     path="/timestamp",
-     *     description="Gets the current timestamp",
-     *     @SWG\Response(
-     *         response=200,
-     *         description="Current timestamp"
+     * @SWG\Definition(
+     *     definition="getCurrentTimestamp",
+     *     type="function",
+     *     description="Gets the current timestamp. The name is pretty much straightforward.",
+     * )
+     * @SWG\Response(
+     *     response=200,
+     *     description="Current timestamp",
+     *     @SWG\Schema(
+     *         type="string",
+     *         format="date-time"
      *     )
      * )
      */

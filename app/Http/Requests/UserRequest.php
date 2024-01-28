@@ -4,6 +4,28 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @SWG\Definition(
+ *     definition="UserRequest",
+ *     type="object",
+ *     description="Requires the data the admin needs to register an user",
+ *     @SWG\Property(
+ *         property="name",
+ *         type="string",
+ *         description="The username",
+ *     ),
+ *     @SWG\Property(
+ *         property="email",
+ *         type="string",
+ *         description="The email of the new user",
+ *     ),
+ *     @SWG\Property(
+ *         property="password",
+ *         type="string",
+ *         description="The password of the new user",
+ *     )
+ * )
+ */
 class UserRequest extends FormRequest
 {
     /**

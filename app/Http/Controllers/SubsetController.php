@@ -10,6 +10,13 @@ use App\Models\Url;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
+/**
+ * @SWG\Definition(
+ *     definition="SubsetController",
+ *     type="object",
+ *     description="Class with all the functions needed to manage subsets.",
+ * )
+ */
 class SubsetController extends ApiController
 {
     /**
@@ -18,7 +25,7 @@ class SubsetController extends ApiController
      * @return JsonResponse
      * @SWG\Get(
      *     path="/subsets",
-     *     description="Gets the list of subsets of the user",
+     *     description="Gets the list of subsets of the user.",
      *     @SWG\Response(
      *         response=200,
      *         description="List of subsets"
@@ -50,7 +57,7 @@ class SubsetController extends ApiController
      * @return JsonResponse
      * @SWG\Get(
      *     path="/subsets/{id}",
-     *     description="Gets a specific subset",
+     *     description="Gets a specific subset.",
      *     @SWG\Parameter(
      *         name="id",
      *         in="path",
@@ -96,7 +103,7 @@ class SubsetController extends ApiController
      * @return JsonResponse
      * @SWG\Post(
      *     path="/subsets",
-     *     description="Creates a new subset",
+     *     description="Creates a new subset.",
      *     @SWG\Parameter(
      *         name="request",
      *         in="body",
@@ -136,7 +143,7 @@ class SubsetController extends ApiController
      * @return JsonResponse
      * @SWG\Put(
      *     path="/subsets/{id}",
-     *     description="Updates a specific subset",
+     *     description="Updates a specific subset.",
      *     @SWG\Parameter(
      *         name="id",
      *         in="path",
@@ -188,7 +195,7 @@ class SubsetController extends ApiController
      * @return JsonResponse
      * @SWG\Delete(
      *     path="/subsets/{id}",
-     *     description="Deletes a specific subset",
+     *     description="Deletes a specific subset.",
      *     @SWG\Parameter(
      *         name="id",
      *         in="path",

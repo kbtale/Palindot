@@ -4,6 +4,23 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @SWG\Definition(
+ *     definition="UserUpdateRequest",
+ *     type="object",
+ *     description="Requires the data necessary to update a user.",
+ *     @SWG\Property(
+ *         property="name",
+ *         type="string",
+ *         description="The name of the user",
+ *     ),
+ *     @SWG\Property(
+ *         property="password",
+ *         type="string",
+ *         description="The password of the new user. It must be confirmed",
+ *     )
+ * )
+ */
 class UserUpdateRequest extends FormRequest
 {
     /**

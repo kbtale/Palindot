@@ -10,6 +10,28 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Url;
 use EloquentFilter\Filterable;
 
+/**
+ * @SWG\Definition(
+ *     definition="Subset",
+ *     type="object",
+ *     description="This is the subset model class",
+ *     @SWG\Property(
+ *         property="subset_name",
+ *         type="string",
+ *         description="The name of the subset"
+ *     ),
+ *     @SWG\Property(
+ *         property="subset_descr",
+ *         type="string",
+ *         description="The description of the subset"
+ *     ),
+ *     @SWG\Property(
+ *         property="user_id",
+ *         type="integer",
+ *         description="The ID of the user who owns the subset"
+ *     )
+ * )
+ */
 class Subset extends Model
 {
     use HasFactory, Filterable;
