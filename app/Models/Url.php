@@ -9,21 +9,21 @@ use App\Models\Subset;
 use EloquentFilter\Filterable;
 
 /**
- * @SWG\Definition(
- *     definition="Url",
+ * @OA\Schema(
+ *     schema="Url",
  *     type="object",
  *     description="This is the URL model class",
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="base_url",
  *         type="string",
  *         description="The base URL"
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="to_url",
  *         type="string",
  *         description="The shortened URL"
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="subset_id",
  *         type="integer",
  *         description="The ID of the subset to which the URL belongs"
@@ -46,15 +46,15 @@ class Url extends Model
     ];
 
     /**
-     * @SWG\Definition(
+     * @OA\Schema(
      *     definition="generateUrl",
      *     type="function",
      *     description="Function to generate the shortened Urls",
      * )
-     * @SWG\Response(
+     * @OA\Response(
      *     response=200,
      *     description="Generated shortened URL",
-     *     @SWG\Schema(
+     *     @OA\Schema(
      *         type="string"
      *     )
      * )

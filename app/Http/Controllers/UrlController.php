@@ -11,8 +11,8 @@ use App\Http\Resources\UrlResource;
 use Illuminate\Validation\ValidationException;
 
 /**
- * @SWG\Definition(
- *     definition="AuthController",
+ * @OA\Schema(
+ *     schema="UrlController",
  *     type="object",
  *     description="Class with all the functions needed to manage URLs.",
  * )
@@ -23,10 +23,10 @@ class UrlController extends ApiController
      * Display a listing of the resource.
      *
      * @return JsonResponse
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/urls",
-     *     description="Gets all the URLs of the user.",
-     *     @SWG\Response(
+     *     summary="Gets all the URLs of the user.",
+     *     @OA\Response(
      *         response=200,
      *         description="List of URLs"
      *     )
@@ -59,17 +59,19 @@ class UrlController extends ApiController
      * @param Url $url url
      *
      * @return JsonResponse
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/urls/{url}",
-     *     description="Gets a specific URL.",
-     *     @SWG\Parameter(
+     *     summary="Gets a specific URL.",
+     *     @OA\Parameter(
      *         name="url",
      *         in="path",
      *         description="ID of the URL",
      *         required=true,
-     *         type="integer"
+     *         schema={
+     *             "type": "integer"
+     *         }
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Specific URL"
      *     )
@@ -86,17 +88,15 @@ class UrlController extends ApiController
      * @param UrlRequest $request request
      *
      * @return JsonResponse
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/urls/create",
-     *     description="Creates a new URL.",
-     *     @SWG\Parameter(
-     *         name="request",
-     *         in="body",
+     *     summary="Creates a new URL.",
+     *     @OA\RequestBody(
      *         description="URL parameters",
      *         required=true,
-     *         @SWG\Schema(ref="#/definitions/UrlRequest")
+     *         @OA\JsonContent(ref="#/components/schemas/UrlRequest")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=201,
      *         description="URL created successfully"
      *     )
@@ -133,28 +133,28 @@ class UrlController extends ApiController
      * @param Url        $url     url
      *
      * @return JsonResponse
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/urls/{url}",
-     *     description="Updates a specific URL.",
-     *     @SWG\Parameter(
+     *     summary="Updates a specific URL.",
+     *     @OA\Parameter(
      *         name="url",
      *         in="path",
      *         description="ID of the URL",
      *         required=true,
-     *         type="integer"
+     *         schema={
+     *             "type": "integer"
+     *         }
      *     ),
-     *     @SWG\Parameter(
-     *         name="request",
-     *         in="body",
+     *     @OA\RequestBody(
      *         description="URL parameters",
      *         required=true,
-     *         @SWG\Schema(ref="#/definitions/UrlRequest")
+     *         @OA\JsonContent(ref="#/components/schemas/UrlRequest")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="URL updated successfully"
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Unauthorized"
      *     )
@@ -184,21 +184,23 @@ class UrlController extends ApiController
      * @param Url $url url
      *
      * @return JsonResponse
-     * @SWG\Delete(
+     * @OA\Delete(
      *     path="/urls/{url}",
-     *     description="Deletes a specific URL.",
-     *     @SWG\Parameter(
+     *     summary="Deletes a specific URL.",
+     *     @OA\Parameter(
      *         name="url",
      *         in="path",
      *         description="ID of the URL",
      *         required=true,
-     *         type="integer"
+     *         schema={
+     *             "type": "integer"
+     *         }
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="URL deleted successfully"
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Unauthorized"
      *     )

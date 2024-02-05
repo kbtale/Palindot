@@ -13,8 +13,8 @@ use Illuminate\Http\JsonResponse;
 use \stdClass;
 
 /**
- * @SWG\Definition(
- *     definition="AuthController",
+ * @OA\Schema(
+ *     schema="AuthController",
  *     type="object",
  *     description="Class with all the functions needed to register, login, logout and reset a user.",
  * )
@@ -27,17 +27,15 @@ class AuthController extends ApiController
      * @param RegisterRequest $request request
      *
      * @return JsonResponse
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/register",
-     *     description="Registers a new user.",
-     *     @SWG\Parameter(
-     *         name="request",
-     *         in="body",
+     *     summary="Registers a new user.",
+     *     @OA\RequestBody(
      *         description="Registration parameters",
      *         required=true,
-     *         @SWG\Schema(ref="#/definitions/RegisterRequest")
+     *         @OA\JsonContent(ref="#/components/schemas/RegisterRequest")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=201,
      *         description="User registered successfully"
      *     )
@@ -69,17 +67,15 @@ class AuthController extends ApiController
      * @param LoginRequest $request request
      *
      * @return JsonResponse
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/login",
-     *     description="Logs in a user.",
-     *     @SWG\Parameter(
-     *         name="request",
-     *         in="body",
+     *     summary="Logs in a user.",
+     *     @OA\RequestBody(
      *         description="Login parameters",
      *         required=true,
-     *         @SWG\Schema(ref="#/definitions/LoginRequest")
+     *         @OA\JsonContent(ref="#/components/schemas/LoginRequest")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="User logged in successfully"
      *     )
@@ -114,10 +110,10 @@ class AuthController extends ApiController
      * Deletes user access tokens
      *
      * @return JsonResponse
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/logout",
-     *     description="Logs out a user.",
-     *     @SWG\Response(
+     *     summary="Logs out a user.",
+     *     @OA\Response(
      *         response=200,
      *         description="User logged out successfully"
      *     )

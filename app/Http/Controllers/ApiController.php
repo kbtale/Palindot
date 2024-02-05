@@ -6,33 +6,38 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 /**
- * @SWG\Swagger(
- *     basePath="/api/v1",
- *     @SWG\Info(
+ * @OA\OpenApi(
+ *     servers={
+ *         @OA\Server(
+ *             url="/api/v1",
+ *             description="Palindot API"
+ *         )
+ *     },
+ *     @OA\Info(
  *         version="1.0.0",
  *         title="Palindot API",
  *         description="Api created for a URL Shortener that generates palindromic values.",
  *     )
  * )
- * @SWG\Definition(
- *     definition="ApiController",
+ * @OA\Schema(
+ *     schema="ApiController",
  *     type="object",
  *     description="This is the base API class. It contains all the docs required by the other classes.",
  * )
  */
+
 class ApiController extends Controller
 {
     /**
-     * @SWG\Definition(
-     *     definition="sort",
-     *     type="function",
-     *     description="Sorts the data received.",
-     * )
-     * @SWG\Response(
-     *     response=200,
-     *     description="Sorted data, order by default by the creation time",
-     *     @SWG\Schema(
-     *         type="array",
+     * @OA\Post(
+     *     path="/sort",
+     *     @OA\RequestBody(
+     *         @OA\JsonContent(ref="#/components/schemas/sort")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Sorted data, order by default by the creation time",
+     *         @OA\JsonContent(type="array")
      *     )
      * )
      */
@@ -46,21 +51,35 @@ class ApiController extends Controller
     }
 
     /**
-     * Generates pagination for common dataTables
-     *
-     * @param \Illuminate\Database\Eloquent\Collection $items
-     *
-     * @return array
-     * @SWG\Definition(
-     *     definition="pagination",
-     *     type="function",
-     *     description="Generates pagination for common dataTables.",
-     * )
-     * @SWG\Response(
-     *     response=200,
-     *     description="Pagination data",
-     *     @SWG\Schema(
-     *         type="array",
+     * @OA\Post(
+     *     path="/sort",
+     *     summary="Sorts the data received",
+     *     @OA\RequestBody(
+     *         description="Sort parameters",
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="order",
+     *                 type="string",
+     *                 description="The order to sort by",
+     *                 example="asc"
+     *             ),
+     *             @OA\Property(
+     *                 property="column",
+     *                 type="string",
+     *                 description="The column to sort by",
+     *                 example="created_at"
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Sorted data, order by default by the creation time",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/YourDataModel")
+     *         )
      *     )
      * )
      */
@@ -75,17 +94,16 @@ class ApiController extends Controller
     }
 
     /**
-     * @SWG\Definition(
-     *     definition="getCurrentTimestamp",
-     *     type="function",
-     *     description="Gets the current timestamp. The name is pretty much straightforward.",
-     * )
-     * @SWG\Response(
-     *     response=200,
-     *     description="Current timestamp",
-     *     @SWG\Schema(
-     *         type="string",
-     *         format="date-time"
+     * @OA\Get(
+     *     path="/getCurrentTimestamp",
+     *     summary="Gets the current timestamp. The name is pretty much straightforward.",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Current timestamp",
+     *         @OA\JsonContent(
+     *             type="string",
+     *             format="date-time"
+     *         )
      *     )
      * )
      */

@@ -5,16 +5,16 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @SWG\Definition(
- *     definition="UrlRequest",
+ * @OA\Schema(
+ *     schema="UrlRequest",
  *     type="object",
  *     description="Requires the data necessary to store and update a url",
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="base_url",
  *         type="string",
  *         description="The url that you want to shorten",
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="subset_id",
  *         type="string",
  *         description="The subset in which you want to store the url. It can be null and it's not required",

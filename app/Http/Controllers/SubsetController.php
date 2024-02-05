@@ -11,8 +11,8 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
 /**
- * @SWG\Definition(
- *     definition="SubsetController",
+ * @OA\Schema(
+ *     schema="SubsetController",
  *     type="object",
  *     description="Class with all the functions needed to manage subsets.",
  * )
@@ -23,10 +23,10 @@ class SubsetController extends ApiController
      * Display a listing of the resource.
      *
      * @return JsonResponse
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/subsets",
-     *     description="Gets the list of subsets of the user.",
-     *     @SWG\Response(
+     *     summary="Gets the list of subsets of the user.",
+     *     @OA\Response(
      *         response=200,
      *         description="List of subsets"
      *     )
@@ -55,21 +55,23 @@ class SubsetController extends ApiController
      * @param Subset $subset subset
      *
      * @return JsonResponse
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/subsets/{id}",
-     *     description="Gets a specific subset.",
-     *     @SWG\Parameter(
+     *     summary="Gets a specific subset.",
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="ID of the subset",
      *         required=true,
-     *         type="integer"
+     *         schema={
+     *             "type": "integer"
+     *         }
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Specific subset"
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Unauthorized"
      *     )
@@ -101,17 +103,15 @@ class SubsetController extends ApiController
      * @param SubsetRequest $request request
      *
      * @return JsonResponse
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/subsets",
-     *     description="Creates a new subset.",
-     *     @SWG\Parameter(
-     *         name="request",
-     *         in="body",
+     *     summary="Creates a new subset.",
+     *     @OA\RequestBody(
      *         description="Subset parameters",
      *         required=true,
-     *         @SWG\Schema(ref="#/definitions/SubsetRequest")
+     *         @OA\JsonContent(ref="#/components/schemas/SubsetRequest")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=201,
      *         description="Subset created successfully"
      *     )
@@ -141,28 +141,28 @@ class SubsetController extends ApiController
      * @param Subset        $subset  subset
      *
      * @return JsonResponse
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/subsets/{id}",
-     *     description="Updates a specific subset.",
-     *     @SWG\Parameter(
+     *     summary="Updates a specific subset.",
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="ID of the subset",
      *         required=true,
-     *         type="integer"
+     *         schema={
+     *             "type": "integer"
+     *         }
      *     ),
-     *     @SWG\Parameter(
-     *         name="request",
-     *         in="body",
+     *     @OA\RequestBody(
      *         description="Subset parameters",
      *         required=true,
-     *         @SWG\Schema(ref="#/definitions/SubsetRequest")
+     *         @OA\JsonContent(ref="#/components/schemas/SubsetRequest")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Subset updated successfully"
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Unauthorized"
      *     )
@@ -193,21 +193,23 @@ class SubsetController extends ApiController
      * @param Subset $subset subset
      *
      * @return JsonResponse
-     * @SWG\Delete(
+     * @OA\Delete(
      *     path="/subsets/{id}",
-     *     description="Deletes a specific subset.",
-     *     @SWG\Parameter(
+     *     summary="Deletes a specific subset.",
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="ID of the subset",
      *         required=true,
-     *         type="integer"
+     *         schema={
+     *             "type": "integer"
+     *         }
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Subset deleted successfully"
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Unauthorized"
      *     )

@@ -6,38 +6,38 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @SWG\Definition(
- *     definition="SubsetResource",
+ * @OA\Schema(
+ *     schema="UrlResource",
  *     type="object",
  *     description="This class contains the function to return the Url data as a JSON",
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="id",
  *         type="integer",
  *         description="The ID of the url"
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="base_url",
  *         type="string",
  *         description="The original url"
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="to_url",
  *         type="string",
  *         description="The shortened url"
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="subset_id",
  *         type="integer",
  *         description="The id of the parent subset"
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="created_at",
- *         type="datetime"
+ *         type="datetime",
  *         description="The creation date and time of the url"
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="updated_at",
- *         type="datetime"
+ *         type="datetime",
  *         description="The last time you updated the url"
  *     )
  * )

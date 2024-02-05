@@ -5,21 +5,21 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @SWG\Definition(
- *     definition="UserRequest",
+ * @OA\Schema(
+ *     schema="UserRequest",
  *     type="object",
  *     description="Requires the data the admin needs to register an user",
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="name",
  *         type="string",
  *         description="The username",
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="email",
  *         type="string",
  *         description="The email of the new user",
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="password",
  *         type="string",
  *         description="The password of the new user",

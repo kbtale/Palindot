@@ -1,0 +1,782 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Palindot API",
+        "description": "Api created for a URL Shortener that generates palindromic values.",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api/v1",
+            "description": "Palindot API"
+        }
+    ],
+    "paths": {
+        "/sort": {
+            "post": {
+                "operationId": "495e4f4f52664378350d5a5f4a16bec7",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/sort"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sorted data, order by default by the creation time",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/getCurrentTimestamp": {
+            "get": {
+                "summary": "Gets the current timestamp. The name is pretty much straightforward.",
+                "operationId": "6af87917d9cdae7ee20e7fca2b411f81",
+                "responses": {
+                    "200": {
+                        "description": "Current timestamp",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "summary": "Registers a new user.",
+                "description": "New user registration",
+                "operationId": "0903f2e0df1a8857bee538fc055417f0",
+                "requestBody": {
+                    "description": "Registration parameters",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "summary": "Logs in a user.",
+                "description": "Login user",
+                "operationId": "2dd578ff7aba2721293dac66833b27d1",
+                "requestBody": {
+                    "description": "Login parameters",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User logged in successfully"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "summary": "Logs out a user.",
+                "description": "Deletes user access tokens",
+                "operationId": "68a6108af04af5e3bc1ea68a6c6f1299",
+                "responses": {
+                    "200": {
+                        "description": "User logged out successfully"
+                    }
+                }
+            }
+        },
+        "/subsets": {
+            "get": {
+                "summary": "Gets the list of subsets of the user.",
+                "description": "Display a listing of the resource.",
+                "operationId": "3fe2eccdbc50d273a44090d1e756f7da",
+                "responses": {
+                    "200": {
+                        "description": "List of subsets"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Creates a new subset.",
+                "description": "Store a newly created resource in storage.",
+                "operationId": "fe0673bf6b64610e72c21a5f2aef06b8",
+                "requestBody": {
+                    "description": "Subset parameters",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SubsetRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Subset created successfully"
+                    }
+                }
+            }
+        },
+        "/subsets/{id}": {
+            "get": {
+                "summary": "Gets a specific subset.",
+                "description": "Display the specified resource.",
+                "operationId": "a99dd0ec45a0f3b9521bc14165d93e35",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the subset",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Specific subset"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Updates a specific subset.",
+                "description": "Update the specified resource in storage.",
+                "operationId": "28353003e123ba04536c41e361aea92a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the subset",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Subset parameters",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SubsetRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Subset updated successfully"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletes a specific subset.",
+                "description": "Remove the specified resource from storage.",
+                "operationId": "fbc8b190526c83ca8e70857d3365e8a5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the subset",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Subset deleted successfully"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/urls": {
+            "get": {
+                "summary": "Gets all the URLs of the user.",
+                "description": "Display a listing of the resource.",
+                "operationId": "ac3ccf6ceb69daabadd6aa9862111dbf",
+                "responses": {
+                    "200": {
+                        "description": "List of URLs"
+                    }
+                }
+            }
+        },
+        "/urls/{url}": {
+            "get": {
+                "summary": "Gets a specific URL.",
+                "description": "Display the specified resource.",
+                "operationId": "31e04dec7e5c51a89fc4e7dc3d3d4150",
+                "parameters": [
+                    {
+                        "name": "url",
+                        "in": "path",
+                        "description": "ID of the URL",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Specific URL"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Updates a specific URL.",
+                "description": "Update the specified resource in storage.",
+                "operationId": "971e217f911720a073ad8d3fd535dc7f",
+                "parameters": [
+                    {
+                        "name": "url",
+                        "in": "path",
+                        "description": "ID of the URL",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "URL parameters",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UrlRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "URL updated successfully"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletes a specific URL.",
+                "description": "Remove the specified resource from storage.",
+                "operationId": "1e8da75470fb15db42fca61dec181437",
+                "parameters": [
+                    {
+                        "name": "url",
+                        "in": "path",
+                        "description": "ID of the URL",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "URL deleted successfully"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/urls/create": {
+            "post": {
+                "summary": "Creates a new URL.",
+                "description": "Store a newly created resource in storage.",
+                "operationId": "8312d6ca405122041bba053d5f3da880",
+                "requestBody": {
+                    "description": "URL parameters",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UrlRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "URL created successfully"
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "summary": "Displays the information of the current user.",
+                "description": "Display the information of the current user.",
+                "operationId": "7e2f5799553ec93c9c43e2a58490d447",
+                "responses": {
+                    "200": {
+                        "description": "Authenticated user"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Creates a new user. Only available for the admin created via seeders.",
+                "description": "Store a newly created resource in storage.",
+                "operationId": "a1fce870c566eb5fc0cf3178ec5d2fed",
+                "requestBody": {
+                    "description": "User parameters",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created successfully"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "summary": "Displays the information of the current user, too lol.",
+                "description": "Display the specified resource.",
+                "operationId": "910a0c7cf580e1c605648d82a4e57f46",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Specific user"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Updates the current user.",
+                "description": "Update the specified resource in storage.",
+                "operationId": "ddfe232db1870b82493bf8bd25596d37",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "User parameters",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "User updated successfully"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Deletes the current user.",
+                "description": "Remove the specified resource from storage.",
+                "operationId": "43dd20becb1f47444e484cbb18ce345c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User deleted successfully"
+                    },
+                    "403": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ApiController": {
+                "description": "This is the base API class. It contains all the docs required by the other classes.",
+                "type": "object"
+            },
+            "AuthController": {
+                "description": "Class with all the functions needed to register, login, logout and reset a user.",
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/ApiController"
+                    }
+                ]
+            },
+            "SubsetController": {
+                "description": "Class with all the functions needed to manage subsets.",
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/ApiController"
+                    }
+                ]
+            },
+            "UrlController": {
+                "description": "Class with all the functions needed to manage URLs.",
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/ApiController"
+                    }
+                ]
+            },
+            "UserController": {
+                "description": "Class with all the functions needed to manage users.",
+                "type": "object",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/ApiController"
+                    }
+                ]
+            },
+            "LoginRequest": {
+                "description": "Requires the data necessary to log in",
+                "properties": {
+                    "email": {
+                        "description": "The email of the user",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "The password of the user",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "RecoverRequest": {
+                "description": "Requires the data necessary to recover an account. You only need one of them",
+                "properties": {
+                    "name": {
+                        "description": "The name of the user",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "The email of the user",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterRequest": {
+                "description": "Requires the data necessary to register a user",
+                "properties": {
+                    "name": {
+                        "description": "The name of the user",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "The email of the new user",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "The password of the new user. It must be confirmed",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "SubsetRequest": {
+                "description": "Requires the data necessary to store and update a subset",
+                "properties": {
+                    "subset_name": {
+                        "description": "The name of the subset",
+                        "type": "string"
+                    },
+                    "subset_descr": {
+                        "description": "The description of the subset. It can be null and it's not required. Must contain 20 characters at least",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UrlRequest": {
+                "description": "Requires the data necessary to store and update a url",
+                "properties": {
+                    "base_url": {
+                        "description": "The url that you want to shorten",
+                        "type": "string"
+                    },
+                    "subset_id": {
+                        "description": "The subset in which you want to store the url. It can be null and it's not required",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UserRequest": {
+                "description": "Requires the data the admin needs to register an user",
+                "properties": {
+                    "name": {
+                        "description": "The username",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "The email of the new user",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "The password of the new user",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UserUpdateRequest": {
+                "description": "Requires the data necessary to update a user.",
+                "properties": {
+                    "name": {
+                        "description": "The name of the user",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "The password of the new user. It must be confirmed",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "SubsetResource": {
+                "description": "This class contains the function to return the SubsetCollection as a JSON",
+                "properties": {
+                    "id": {
+                        "description": "The ID of the subset",
+                        "type": "integer"
+                    },
+                    "subset_name": {
+                        "description": "The name of the subset",
+                        "type": "string"
+                    },
+                    "subset_descr": {
+                        "description": "The description of the subset",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "The creation date and time of the subset",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "The last time you updated the subset",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "UrlResource": {
+                "description": "This class contains the function to return the Url data as a JSON",
+                "properties": {
+                    "id": {
+                        "description": "The ID of the url",
+                        "type": "integer"
+                    },
+                    "base_url": {
+                        "description": "The original url",
+                        "type": "string"
+                    },
+                    "to_url": {
+                        "description": "The shortened url",
+                        "type": "string"
+                    },
+                    "subset_id": {
+                        "description": "The id of the parent subset",
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "description": "The creation date and time of the url",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "The last time you updated the url",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "UserResource": {
+                "description": "This class contains the function to return the user data as a JSON",
+                "properties": {
+                    "id": {
+                        "description": "The ID of the user",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "The name of the user",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "The email of the subset",
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "description": "The avatar of the user",
+                        "type": "string"
+                    },
+                    "gravatar": {
+                        "description": "Gravatar returned if the user has not an avatar",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "The creation date and time of the user",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "The last time you updated the user",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "Subset": {
+                "description": "This is the subset model class",
+                "properties": {
+                    "subset_name": {
+                        "description": "The name of the subset",
+                        "type": "string"
+                    },
+                    "subset_descr": {
+                        "description": "The description of the subset",
+                        "type": "string"
+                    },
+                    "user_id": {
+                        "description": "The ID of the user who owns the subset",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Url": {
+                "description": "This is the URL model class",
+                "properties": {
+                    "base_url": {
+                        "description": "The base URL",
+                        "type": "string"
+                    },
+                    "to_url": {
+                        "description": "The shortened URL",
+                        "type": "string"
+                    },
+                    "subset_id": {
+                        "description": "The ID of the subset to which the URL belongs",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "description": "This is the User model class",
+                "properties": {
+                    "name": {
+                        "description": "The name of the user",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "The email of the user",
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "description": "The password of the user",
+                        "type": "string",
+                        "format": "password"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "Generated shortened URL"
+            }
+        }
+    }
+}

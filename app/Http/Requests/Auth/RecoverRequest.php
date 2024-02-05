@@ -5,16 +5,16 @@ namespace App\Http\Requests\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @SWG\Definition(
- *     definition="RecoverRequest",
+ * @OA\Schema(
+ *     schema="RecoverRequest",
  *     type="object",
  *     description="Requires the data necessary to recover an account. You only need one of them",
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="name",
  *         type="string",
  *         description="The name of the user",
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="email",
  *         type="string",
  *         description="The email of the user",

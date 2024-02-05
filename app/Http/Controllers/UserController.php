@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 /**
- * @SWG\Definition(
- *     definition="AuthController",
+ * @OA\Schema(
+ *     schema="UserController",
  *     type="object",
  *     description="Class with all the functions needed to manage users.",
  * )
@@ -23,10 +23,10 @@ class UserController extends ApiController
      * Display the information of the current user.
      *
      * @return JsonResponse
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/users",
-     *     description="Displays the information of the current user.",
-     *     @SWG\Response(
+     *     summary="Displays the information of the current user.",
+     *     @OA\Response(
      *         response=200,
      *         description="Authenticated user"
      *     )
@@ -45,21 +45,23 @@ class UserController extends ApiController
      * @param User $user user
      *
      * @return JsonResponse
-     * @SWG\Get(
+     * @OA\Get(
      *     path="/users/{id}",
-     *     description="Displays the information of the current user, too lol.",
-     *     @SWG\Parameter(
+     *     summary="Displays the information of the current user, too lol.",
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="ID of the user",
      *         required=true,
-     *         type="integer"
+     *         schema={
+     *             "type": "integer"
+     *         }
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="Specific user"
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Unauthorized"
      *     )
@@ -80,21 +82,19 @@ class UserController extends ApiController
      * @param UserRequest $request request
      *
      * @return JsonResponse
-     * @SWG\Post(
+     * @OA\Post(
      *     path="/users",
-     *     description="Creates a new user. Only available for the admin created via seeders.",
-     *     @SWG\Parameter(
-     *         name="request",
-     *         in="body",
+     *     summary="Creates a new user. Only available for the admin created via seeders.",
+     *     @OA\RequestBody(
      *         description="User parameters",
      *         required=true,
-     *         @SWG\Schema(ref="#/definitions/UserRequest")
+     *         @OA\JsonContent(ref="#/components/schemas/UserRequest")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=201,
      *         description="User created successfully"
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Unauthorized"
      *     )
@@ -128,28 +128,28 @@ class UserController extends ApiController
      * @param User        $user    user
      *
      * @return JsonResponse
-     * @SWG\Put(
+     * @OA\Put(
      *     path="/users/{id}",
-     *     description="Updates the current user.",
-     *     @SWG\Parameter(
+     *     summary="Updates the current user.",
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="ID of the user",
      *         required=true,
-     *         type="integer"
+     *         schema={
+     *             "type": "integer"
+     *         }
      *     ),
-     *     @SWG\Parameter(
-     *         name="request",
-     *         in="body",
+     *     @OA\RequestBody(
      *         description="User parameters",
      *         required=true,
-     *         @SWG\Schema(ref="#/definitions/UserRequest")
+     *         @OA\JsonContent(ref="#/components/schemas/UserRequest")
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="User updated successfully"
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Unauthorized"
      *     )
@@ -176,21 +176,23 @@ class UserController extends ApiController
      * @param User $user user
      *
      * @return JsonResponse
-     * @SWG\Delete(
+     * @OA\Delete(
      *     path="/users/{id}",
-     *     description="Deletes the current user.",
-     *     @SWG\Parameter(
+     *     summary="Deletes the current user.",
+     *     @OA\Parameter(
      *         name="id",
      *         in="path",
      *         description="ID of the user",
      *         required=true,
-     *         type="integer"
+     *         schema={
+     *             "type": "integer"
+     *         }
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=200,
      *         description="User deleted successfully"
      *     ),
-     *     @SWG\Response(
+     *     @OA\Response(
      *         response=403,
      *         description="Unauthorized"
      *     )

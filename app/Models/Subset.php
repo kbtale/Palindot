@@ -11,21 +11,21 @@ use App\Models\Url;
 use EloquentFilter\Filterable;
 
 /**
- * @SWG\Definition(
- *     definition="Subset",
+ * @OA\Schema(
+ *     schema="Subset",
  *     type="object",
  *     description="This is the subset model class",
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="subset_name",
  *         type="string",
  *         description="The name of the subset"
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="subset_descr",
  *         type="string",
  *         description="The description of the subset"
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="user_id",
  *         type="integer",
  *         description="The ID of the user who owns the subset"

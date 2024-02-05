@@ -12,22 +12,22 @@ use App\Models\Subset;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * @SWG\Definition(
- *     definition="User",
+ * @OA\Schema(
+ *     schema="User",
  *     type="object",
  *     description="This is the User model class",
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="name",
  *         type="string",
  *         description="The name of the user"
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="email",
  *         type="string",
  *         format="email",
  *         description="The email of the user"
  *     ),
- *     @SWG\Property(
+ *     @OA\Property(
  *         property="password",
  *         type="string",
  *         format="password",
