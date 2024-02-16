@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Url;
 use App\Models\User;
 
-/*
+
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
@@ -18,7 +18,7 @@ use App\Models\User;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "api" middleware group. Make something great!
 |
-*/
+
 
 
 $shortenedUrls = Url::all();
