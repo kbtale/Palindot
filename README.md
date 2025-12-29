@@ -1,6 +1,16 @@
-# Palindot
+<h1 align="center">Palindot</h1>
 
-**Palindot** is a URL shortener SPA built with Laravel and Vue 3. It creates palindromic short codes (symmetrical strings) for shortened URLs.
+<p align="center">
+  A URL shortener SPA built with Laravel and Vue 3 that creates palindromic short codes.
+  <br>
+  <br>
+  <img src="https://img.shields.io/badge/Laravel-10-FF2D20?logo=laravel&logoColor=white" alt="Laravel" />
+  <img src="https://img.shields.io/badge/Vue.js-3-4FC08D?logo=vue.js&logoColor=white" alt="Vue.js" />
+  <img src="https://img.shields.io/badge/Tailwind-CSS-38B2AC?logo=tailwind-css&logoColor=white" alt="Tailwind" />
+  <img src="https://img.shields.io/badge/Docs-Swagger-85EA2D?logo=swagger&logoColor=black" alt="Swagger" />
+  <img src="https://img.shields.io/badge/Test-Pest-purple" alt="Pest" />
+</p>
+<hr>
 
 ## Implementation Details
 
