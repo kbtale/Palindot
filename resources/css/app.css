@@ -2,6 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap");
+
+body {
+    font-family: "Outfit", sans-serif;
+}
+
+.hero-pattern {
+    background-image:
+        radial-gradient(
+            circle at 15% 50%,
+            rgba(255, 255, 255, 0.06),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 85% 30%,
+            rgba(255, 255, 255, 0.06),
+            transparent 25%
+        );
+}
+
+.mesh-bg {
+    background: linear-gradient(135deg, #62859b 0%, #456070 100%);
+}
+
+.glass-nav {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.smooth-shadow {
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+}
+
 @media (min-width: 768px) {
     .md\:h-4\/5-screen {
         height: 80vh;

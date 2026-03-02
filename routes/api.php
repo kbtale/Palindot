@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Url;
 use App\Models\User;
 
-
+/*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
@@ -46,3 +46,4 @@ Route::group(['prefix' => 'v1', 'namespace'=>'App\Http\Controllers'], function()
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+*/
