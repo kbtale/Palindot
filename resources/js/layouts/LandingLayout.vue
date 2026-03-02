@@ -3,12 +3,12 @@
         <!-- Navigation -->
         <nav :class="['fixed w-full z-50 transition-all duration-300', isScrolled ? 'glass-nav border-b border-white/40 py-0' : 'bg-transparent border-transparent py-2']">
             <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <div :class="['w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300', isScrolled ? 'bg-[#1A1A1A] text-white' : 'bg-white text-[#1A1A1A]']">
+                <router-link to="/" class="flex items-center gap-2 group">
+                    <div :class="['w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110', isScrolled ? 'bg-[#1A1A1A] text-white' : 'bg-white text-[#1A1A1A] shadow-sm']">
                         <LinkIcon class="w-4 h-4" stroke-width="2.5" />
                     </div>
-                    <span :class="['text-xl font-semibold tracking-tight transition-colors duration-300', isScrolled ? 'text-gray-900' : 'text-white']">Palindot</span>
-                </div>
+                    <span :class="['text-xl font-semibold tracking-tight transition-colors duration-300', isScrolled ? 'text-gray-900 group-hover:text-[#62859B]' : 'text-white']">Palindot</span>
+                </router-link>
                 <div :class="['hidden md:flex items-center gap-8 text-sm font-medium transition-colors duration-300', isScrolled ? 'text-gray-600' : 'text-white/90']">
                     <a href="#features" :class="['transition-colors', isScrolled ? 'hover:text-[#62859B]' : 'hover:text-white']">Features</a>
                     <a href="#dashboard" :class="['transition-colors', isScrolled ? 'hover:text-[#62859B]' : 'hover:text-white']">Dashboard</a>

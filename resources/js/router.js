@@ -60,12 +60,13 @@ const routes = [
     {
       path: '/user',
       component: UserLayout,
-      redirect: '/user/home',
+      redirect: '/user/dashboard',
       name: 'User',
       children: [
         {
           path: 'dashboard',
           component: UserDashboardPage,
+          name: 'UserHome',
         },
         {
           path: 'account',

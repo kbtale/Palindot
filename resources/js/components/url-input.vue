@@ -6,13 +6,14 @@
         <div class="pl-6 text-gray-400">
           <LinkIcon class="w-6 h-6" />
         </div>
-        <input 
-          type="url" 
-          v-model="urlInput"
-          placeholder="Paste your long URL here..." 
-          class="flex-1 bg-transparent px-4 py-4 text-lg text-gray-800 outline-none placeholder:text-gray-400 font-light"
-          required
-        />
+          <input 
+            type="url" 
+            v-model="urlInput"
+            placeholder="Paste your long URL here..." 
+            class="flex-1 bg-transparent px-4 py-4 text-lg text-gray-800 outline-none placeholder:text-gray-400 font-light"
+            required
+            maxlength="2048"
+          />
         <button 
           type="submit"
           :disabled="isGenerating"
