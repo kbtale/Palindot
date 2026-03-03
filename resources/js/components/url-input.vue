@@ -1,54 +1,87 @@
 <template>
-    <div class="flex items-center justify-between p-2 bg-white rounded-full shadow-lg text-lg font-semibold input z-10">
-        <div class="flex items-center pl-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 mr-2" viewBox="0 0 640 512"><!-- !Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. --><path d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"/></svg>
-            <input type="text" placeholder="Paste url here..." class="ml-0 bg-transparent outline-none">
+  <div class="max-w-3xl mx-auto relative group w-full">
+    <div class="absolute -inset-1 bg-white/20 rounded-full blur-md group-hover:bg-white/30 transition duration-500"></div>
+    <div class="relative flex flex-col items-center bg-white rounded-[2rem] p-2.5 shadow-2xl">
+      <form @submit.prevent="handleGenerate" class="w-full flex items-center">
+        <div class="pl-6 text-gray-400">
+          <LinkIcon class="w-6 h-6" />
         </div>
-        <button class="bg-blue-500 text-white rounded-full p-2 mr-0">Generate Palindot!</button>
+          <input 
+            type="url" 
+            v-model="urlInput"
+            placeholder="Paste your long URL here..." 
+            class="flex-1 bg-transparent px-4 py-4 text-lg text-gray-800 outline-none placeholder:text-gray-400 font-light"
+            required
+            maxlength="2048"
+          />
+        <button 
+          type="submit"
+          :disabled="isGenerating"
+          class="bg-[#1A1A1A] text-white px-8 py-4 rounded-full font-medium flex items-center gap-2 transition-all duration-300 hover:bg-black hover:scale-105 disabled:opacity-75 disabled:scale-95"
+        >
+          {{ isGenerating ? 'Generating...' : 'Generate' }}
+          <ArrowRightIcon v-if="!isGenerating" class="w-5 h-5" />
+        </button>
+      </form>
+      
+      <!-- Result Area -->
+      <div v-if="shortenedUrl" class="w-full mt-4 px-6 pb-4 border-t border-gray-100 pt-4 animate-fade-in">
+        <div class="flex items-center justify-between bg-gray-50 p-4 rounded-2xl">
+          <span class="text-gray-900 font-medium truncate mr-4">{{ shortenedUrl }}</span>
+          <button @click="copyToClipboard" class="text-[#62859B] text-sm font-semibold hover:text-[#456070] transition-colors whitespace-nowrap">
+            {{ copied ? 'Copied!' : 'Copy Link' }}
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
-<style>
-@property --angle {
-    syntax: '<angle>';
-    initial-value: 90deg;
-    inherits: true;
+
+<script setup>
+import { ref } from 'vue';
+import { LinkIcon, ArrowRightIcon } from '@heroicons/vue/24/outline';
+import axios from 'axios';
+
+const urlInput = ref('');
+const isGenerating = ref(false);
+const shortenedUrl = ref('');
+const copied = ref(false);
+
+const handleGenerate = async () => {
+  if (!urlInput.value) return;
+  
+  isGenerating.value = true;
+  shortenedUrl.value = '';
+  
+  try {
+    const response = await axios.post('/api/v1/urls/create', {
+      base_url: urlInput.value
+    });
+    
+    shortenedUrl.value = response.data.to_url;
+  } catch (error) {
+    console.error('Error generating URL:', error);
+  } finally {
+    isGenerating.value = false;
+  }
+};
+
+const copyToClipboard = () => {
+  navigator.clipboard.writeText(shortenedUrl.value);
+  copied.value = true;
+  setTimeout(() => {
+    copied.value = false;
+  }, 2000);
+};
+</script>
+
+<style scoped>
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
-@property --gradX {
-    syntax: '<percentage>';
-    initial-value: 50%;
-    inherits: true;
-}
-
-@property --gradY {
-    syntax: '<percentage>';
-    initial-value: 0%;
-    inherits: true;
-}
-
-:root {
-	--d: 5000ms;
-	--angle: 90deg;
-	--c1: rgba(168, 239, 255, 1);
-	--c2: rgba(168, 239, 255, 0);
-}
-
-.input {
-	background:
-    linear-gradient(#fff 0 0) padding-box,
-    conic-gradient(from var(--angle), var(--c2), var(--c1) 0.1turn, var(--c1) 0.15turn, var(--c2) 0.1turn) border-box;
-    border: 0px solid transparent;
-	animation: borderRotate var(--d) ease-in infinite forwards;
-    transition: all .1s;
-}
-
-.input:hover {
-    border: 3px solid transparent;
-}
-
-@keyframes borderRotate {
-	100% {
-		--angle: 420deg;
-	}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
