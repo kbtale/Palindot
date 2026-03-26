@@ -62,6 +62,7 @@ const routes = [
       component: UserLayout,
       redirect: '/user/dashboard',
       name: 'User',
+      meta: { requiresAuth: true },
       children: [
         {
           path: 'dashboard',
@@ -127,5 +128,29 @@ const routes = [
   
     { path: '/:catchAll(.*)', component: PageNotFound },
 ];
+
+// Navigation Guard
+routes.beforeEach = (to, from, next) => {
+    const isAuthenticated = !!localStorage.getItem('auth_token');
+    
+    if (isAuthenticated) {
+        window.axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('auth_token')}`;
+    }
+
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!isAuthenticated) {
+            next({
+                path: '/auth/login',
+                query: { redirect: to.fullPath }
+            });
+        } else {
+            next();
+        }
+    } else if (to.path.startsWith('/auth') && isAuthenticated) {
+        next({ name: 'UserHome' });
+    } else {
+        next();
+    }
+};
 
 export default routes;

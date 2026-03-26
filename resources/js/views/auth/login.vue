@@ -113,7 +113,7 @@ const handleLogin = async () => {
     error.value = null;
 
     try {
-        const response = await axios.post('/api/login', form);
+        const response = await axios.post('/api/v1/login', form);
         
         // Save token
         localStorage.setItem('auth_token', response.data.access_token);
