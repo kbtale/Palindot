@@ -144,7 +144,7 @@ const handleRegister = async () => {
     errors.value = [];
 
     try {
-        const response = await axios.post('/api/register', form);
+        const response = await axios.post('/api/v1/register', form);
         
         // Save token
         localStorage.setItem('auth_token', response.data.access_token);
