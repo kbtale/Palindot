@@ -12,6 +12,8 @@ use App\Models\User;
 Route::group(['prefix' => 'v1', 'namespace'=>'App\Http\Controllers'], function(){
     Route::post('register', [AuthController::class, 'register'])->name('auth.register');
     Route::post('login', [AuthController::class,'login'])->name('auth.login');
+    Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
+    Route::post('reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
     Route::post('urls/create', [UrlController::class,'store'])->name('url.create');
     
     Route::middleware('auth:sanctum')->group(function (){
